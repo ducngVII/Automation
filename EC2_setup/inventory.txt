@@ -1,0 +1,4 @@
+[monitorserver]
+db_server   
+[nodeservers]
+server1  

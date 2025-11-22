@@ -1,0 +1,37 @@
+# ---- SSH keys ----
+*.pem
+*.key
+*.pub
+
+# ---- Private vars ----
+group_vars/*_vault.yml
+vault_pass.txt
+
+# ---- Python virtual env ----
+venv/
+.env/
+env/
+.venv/
+
+# ---- Ansible retry files ----
+*.retry
+
+# ---- Sensitive inventories ----
+inventory.local
+inventory_dev.ini
+inventory_test.ini
+
+# ---- Logs ----
+logs/
+*.log
+
+# ---- VSCode ----
+.vscode/
+*.code-workspace
+
+# ---- macOS files ----
+.DS_Store
+
+# ---- Other OS/temp files ----
+Thumbs.db
+*.tmp
