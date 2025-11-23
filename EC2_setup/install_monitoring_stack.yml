@@ -1,3 +1,5 @@
+---
+### Ansible Playbook to install Monitoring Stack (Prometheus & Grafana) on monitorserver
 - name: install monitoring stack
   hosts: monitorserver
   become: yes
@@ -9,3 +11,58 @@
   become: yes
   roles:
   - node-exporter
+
+### Ansible Playbook to install Docker
+- hosts: nodeservers
+  become: yes
+  tasks:
+
+  - name: update apt cache
+    apt:
+      update_cache: yes
+  
+  - name: install docker requirements
+    apt:
+      pkg:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+      state: present
+      update_cache: yes 
+
+  - name: Add Docker GPG key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Add Docker repository
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu focal stable
+      state: present
+  
+  - name: Install Docker-ce
+    apt:
+      name: 
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        - docker-buildx-plugin
+        - docker-compose-plugin 
+      state: present
+      update_cache: yes
+
+  - name: Create cadvisor container
+    docker_container:
+      name: cadvisor
+      image: gcr.io/cadvisor/cadvisor:latest
+      state: started
+      restart_policy: always
+      published_ports:
+        - "8080:8080"
+      volumes:
+        - "/:/rootfs:ro"
+        - "/var/run:/var/run:ro"
+        - "/sys:/sys:ro"
+        - "/var/lib/docker/:/var/lib/docker:ro"
+
