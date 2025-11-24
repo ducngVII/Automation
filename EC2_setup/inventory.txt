@@ -1,2 +1,2 @@
 [monitorserver]
-db_server   ansible_host=13.214.173.143  ansible_user=ubuntu  ansible_ssh_private_key_file=/home/ducnguyen/.ssh/tuna-lap.pem
+db_server   ansible_host=  ansible_user=ubuntu  ansible_ssh_private_key_file=

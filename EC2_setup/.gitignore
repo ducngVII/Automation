@@ -20,6 +20,7 @@ env/
 inventory.local
 inventory_dev.ini
 inventory_test.ini
+inventory.txt
 
 # ---- Logs ----
 logs/
