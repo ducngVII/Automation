@@ -1,3 +1,0 @@
-ansible_user: Ansible
-ansible_ssh_private_key_file: /home/ducnguyen/.ssh/tuna-lap.pem
-ansible_host: 47.128.13.254

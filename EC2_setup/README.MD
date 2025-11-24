@@ -143,7 +143,7 @@ prometheus_var_config:
     state: started
     enabled: yes
 
-# Create prometheus.yaml.j2 in ./roles/prometheus/prometheus.yaml.j2
+# Create prometheus.yaml.j2 in templates
 #jinja2: lstrip_blocks: "True"
 {{ prometheus_var_config | to_nice_yaml(indent=2) }}
 {% if prometheus_node_exporter_group %}
@@ -157,7 +157,7 @@ prometheus_var_config:
 {% endfor %}
 {% endif %}
 
-# prometheus.j2 file for the Prometheus CLI 
+# prometheus.j2 file templates
 ARGS="--web.enable-lifecycle --storage.tsdb.retention.time={{ prometheus_retention_time }} --web.console.templates=/etc/prometheus/consoles --web.console.libraries=/etc/prometheus/console_libraries
 
 # handlers for prometheus ./roles/prometheus/handlers/main.yml
@@ -169,7 +169,7 @@ ARGS="--web.enable-lifecycle --storage.tsdb.retention.time={{ prometheus_retenti
     daemon_reload: yes
 - name: reload_prometheus
   uri:
-    url: http://localhost:9090/-/reload
+    url: http://localhost:9090
     method: POST
     status_code: 200
 
