@@ -1,0 +1,30 @@
+--- 
+
+- hosts: web_servers
+  become: true
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: latest
+        update_cache: yes
+
+    - name: check if Nginx is installed
+      service:
+        name: nginx
+        state: started
+        enabled: true
+
+    - name: Copy web content to Nginx root directory
+      copy:
+        src: /path/to/local/web/content/
+        dest: /var/www/html/index.html
+        owner: www-data
+        group: www-data
+        mode: '0644'
+
+    - name: Ensure Nginx is running and enabled
+      systemd:
+        name: nginx
+        state: started
+        enabled: true
